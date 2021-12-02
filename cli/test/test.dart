@@ -13,9 +13,9 @@ import 'supporting_files/worlds/custom_world.world.dart';
 
 String buildFeaturesPathRegex() {
   // '\' must be escaped, '/' must not be escaped:
-  var featuresPath = (Platform.isWindows)
-      ? 'features${Platform.pathSeparator}.*.feature'
-      : 'features${Platform.pathSeparator}.*.feature';
+  // if on windows do other things
+
+  var featuresPath = 'features${Platform.pathSeparator}.*.feature';
 
   return featuresPath;
 }
