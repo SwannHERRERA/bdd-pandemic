@@ -6,13 +6,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import static dev.swannherrera.CityName.PARIS;
+
 import java.util.Map;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Maps;
 
 public class InfectionSteps {
-    Map<CityName, City> map = Maps.newHashMap(PARIS, new City(PARIS));
+    Map<CityName, City> map = Maps.newHashMap(PARIS, City.of(PARIS));
 
     @ParameterType(".*")
     public CityName cityName(String cityName) {
@@ -29,11 +30,12 @@ public class InfectionSteps {
     public void parisHasNotBeenInfected(CityName cityName) {
         var city = City.of(cityName);
         map.put(cityName, city);
+        Assertions.assertThat(map.get(cityName).getInfectionLevel()).isZero();
     }
 
     @When("{city} is infected")
     public void cityIsInfected(City city) {
-        city.infect();
+        map.put(city.getName(), city.infect());
     }
 
     @Then("{city}' infection level should be increse to {int}")
