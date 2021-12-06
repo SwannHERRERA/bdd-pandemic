@@ -19,9 +19,16 @@ public class InfectionSteps {
         return CityName.valueOf(cityName.toUpperCase());
     }
 
+    @ParameterType(".*")
+    public City city(String cityName) {
+        CityName city = CityName.valueOf(cityName.toUpperCase());
+        return map.get(city);
+    }
+
     @Given("{cityName} has not been infected")
     public void parisHasNotBeenInfected(CityName cityName) {
-        throw new io.cucumber.java.PendingException();
+        var city = City.of(cityName);
+        map.put(cityName, city);
     }
 
     @When("{city} is infected")
